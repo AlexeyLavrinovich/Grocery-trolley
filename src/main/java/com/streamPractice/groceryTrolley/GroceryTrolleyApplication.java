@@ -22,7 +22,7 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		exercise2();
+		exercise3();
 	}
 
 	public void exercise1(){
@@ -48,5 +48,18 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 		System.out.println("-------------------------------");
 	}
 
+	public void exercise3(){
+		System.out.println("-----------Exercise 3----------");
+		productRepo.findAll()
+				.stream()
+				.filter(product -> product.getCategory().equals("Toys"))
+				.map(product -> {
+					product.setPrice(product.getPrice() * 0.9);
+					return product;
+				})
+				.map(ProductMapper.INSTANCE::mapToModel)
+				.forEach(System.out::println);
+		System.out.println("-------------------------------");
+	}
 
 }
