@@ -9,6 +9,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @AllArgsConstructor
 @SpringBootApplication
 public class GroceryTrolleyApplication implements org.springframework.boot.ApplicationRunner{
@@ -18,11 +21,6 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 
 	public static void main(String[] args) {
 		SpringApplication.run(GroceryTrolleyApplication.class, args);
-	}
-
-	@Override
-	public void run(ApplicationArguments args) throws Exception {
-		exercise3();
 	}
 
 	public void exercise1(){
@@ -62,4 +60,22 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 		System.out.println("-------------------------------");
 	}
 
+	public void exercise4(){
+		System.out.println("-----------Exercise 2----------");
+		orderRepo.findAll()
+				.stream()
+				.filter(order -> order.getCustomer().getTier().equals(2))
+				.filter(order -> order.getOrderDate().isAfter(LocalDate.of(2021,2,1))
+						&& order.getDeliveryDate().isBefore(LocalDate.of(2021,4,1)))
+				.flatMap(order -> order.getProducts().stream())
+				.distinct()
+				.map(ProductMapper.INSTANCE::mapToModel)
+				.forEach(System.out::println);
+		System.out.println("-------------------------------");
+	}
+
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		exercise4();
+	}
 }
