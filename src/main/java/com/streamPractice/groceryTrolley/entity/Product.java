@@ -11,6 +11,27 @@ import java.util.List;
 @Entity
 @Builder
 @Table (name = "product")
+@NamedEntityGraph(
+        name = "product-entity-graph",
+        attributeNodes = {
+                @NamedAttributeNode("name"),
+                @NamedAttributeNode("category"),
+                @NamedAttributeNode("price"),
+                @NamedAttributeNode(value = "orders", subgraph = "order-subgraph")
+        },
+        subgraphs = {
+                @NamedSubgraph(
+                        name = "order-subgraph",
+                        attributeNodes = {
+                                @NamedAttributeNode("status"),
+                                @NamedAttributeNode("orderDate"),
+                                @NamedAttributeNode("deliveryDate"),
+                                @NamedAttributeNode(value = "customer"),
+                                @NamedAttributeNode(value = "products")
+                        }
+                )
+        }
+)
 public class Product {
 
     @Id

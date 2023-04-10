@@ -3,7 +3,6 @@ package com.streamPractice.groceryTrolley.mapper;
 import com.streamPractice.groceryTrolley.entity.Customer;
 import com.streamPractice.groceryTrolley.model.CustomerModel;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
