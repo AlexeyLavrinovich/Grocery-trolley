@@ -1,5 +1,6 @@
 package com.streamPractice.groceryTrolley;
 
+import com.streamPractice.groceryTrolley.entity.Product;
 import com.streamPractice.groceryTrolley.mapper.OrderMapper;
 import com.streamPractice.groceryTrolley.mapper.ProductMapper;
 import com.streamPractice.groceryTrolley.repository.OrderRepo;
@@ -10,6 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Date;
 
 @AllArgsConstructor
@@ -61,7 +63,7 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 	}
 
 	public void exercise4(){
-		System.out.println("-----------Exercise 2----------");
+		System.out.println("-----------Exercise 4----------");
 		orderRepo.findAll()
 				.stream()
 				.filter(order -> order.getCustomer().getTier().equals(2))
@@ -74,8 +76,22 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 		System.out.println("-------------------------------");
 	}
 
+	public void exercise5(){
+		System.out.println("-----------Exercise 5----------");
+		productRepo.findAll()
+				.stream()
+				.filter(product -> product.getCategory().equals("Books"))
+//				.sorted(Comparator.comparing(Product::getPrice))
+//				.findFirst()
+				.min(Comparator.comparing(Product::getPrice))
+				.stream()
+				.map(ProductMapper.INSTANCE::mapToModel)
+				.forEach(System.out::println);
+		System.out.println("-------------------------------");
+	}
+
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		exercise4();
+		exercise5();
 	}
 }
