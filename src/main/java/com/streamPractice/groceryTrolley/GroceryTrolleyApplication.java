@@ -1,5 +1,6 @@
 package com.streamPractice.groceryTrolley;
 
+import com.streamPractice.groceryTrolley.entity.Order;
 import com.streamPractice.groceryTrolley.entity.Product;
 import com.streamPractice.groceryTrolley.mapper.OrderMapper;
 import com.streamPractice.groceryTrolley.mapper.ProductMapper;
@@ -12,7 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.Date;
 
 @AllArgsConstructor
 @SpringBootApplication
@@ -90,8 +90,19 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 		System.out.println("-------------------------------");
 	}
 
+	public void exercise6(){
+		System.out.println("-----------Exercise 6----------");
+		orderRepo.findAll()
+				.stream()
+				.sorted(Comparator.comparing(Order::getOrderDate).reversed())
+				.limit(3)
+				.map(OrderMapper.INSTANCE::mapToModel)
+				.forEach(System.out::println);
+		System.out.println("-------------------------------");
+	}
+
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		exercise5();
+		exercise6();
 	}
 }
