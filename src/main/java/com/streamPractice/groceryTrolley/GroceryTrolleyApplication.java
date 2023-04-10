@@ -101,8 +101,24 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 		System.out.println("-------------------------------");
 	}
 
+	public void exercise7(){
+		System.out.println("-----------Exercise 7----------");
+		orderRepo.findAll()
+				.stream()
+				.filter(order -> order.getOrderDate().isEqual(LocalDate.of(2021,3,15)))
+				.map(OrderMapper.INSTANCE::mapToModel)
+				.peek(System.out::println)
+				.map(OrderMapper.INSTANCE::mapToEntity)
+				.flatMap(order -> order.getProducts().stream())
+				.distinct()
+				.sorted(Comparator.comparing(Product::getId))
+				.map(ProductMapper.INSTANCE::mapToModel)
+				.forEach(System.out::println);
+		System.out.println("-------------------------------");
+	}
+
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		exercise6();
+		exercise7();
 	}
 }
