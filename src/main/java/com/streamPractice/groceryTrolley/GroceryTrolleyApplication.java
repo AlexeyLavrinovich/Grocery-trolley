@@ -117,8 +117,22 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 		System.out.println("-------------------------------");
 	}
 
+	public void exercise8(){
+		System.out.println("-----------Exercise 8----------");
+		System.out.println(
+				orderRepo.findAll()
+						.stream()
+						.filter(order -> order.getOrderDate().isAfter(LocalDate.of(2021,02,01))
+								&& order.getOrderDate().isBefore(LocalDate.of(2021,02,28)))
+						.flatMap(order -> order.getProducts().stream())
+						.mapToDouble(Product::getPrice)
+						.sum()
+		);
+		System.out.println("-------------------------------");
+	}
+
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		exercise7();
+		exercise8();
 	}
 }
