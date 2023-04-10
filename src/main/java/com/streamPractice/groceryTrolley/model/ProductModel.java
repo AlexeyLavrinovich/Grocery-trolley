@@ -1,10 +1,7 @@
 package com.streamPractice.groceryTrolley.model;
 
 import com.streamPractice.groceryTrolley.entity.Order;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -18,6 +15,6 @@ public class ProductModel {
     private String name;
     private String category;
     private Double price;
-
+    @ToString.Exclude
     private List<Order> orders;
 }

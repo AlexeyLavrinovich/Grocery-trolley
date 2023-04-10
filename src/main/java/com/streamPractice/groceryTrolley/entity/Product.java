@@ -1,10 +1,7 @@
 package com.streamPractice.groceryTrolley.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -25,6 +22,7 @@ public class Product {
     private Double price;
 
     @ManyToMany(mappedBy = "products")
+    @ToString.Exclude
     private List<Order> orders;
 
 }

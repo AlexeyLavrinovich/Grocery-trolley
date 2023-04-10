@@ -12,6 +12,16 @@ import java.util.List;
 @Entity
 @Builder
 @Table(name = "product_order")
+@NamedEntityGraph(
+        name = "order-with-products-graph",
+        attributeNodes = {
+                @NamedAttributeNode("status"),
+                @NamedAttributeNode("orderDate"),
+                @NamedAttributeNode("deliveryDate"),
+                @NamedAttributeNode(value = "customer"),
+                @NamedAttributeNode(value = "products")
+        }
+)
 public class Order {
 
     @Id
@@ -32,7 +42,6 @@ public class Order {
             joinColumns = { @JoinColumn (name = "order_id") },
             inverseJoinColumns = { @JoinColumn (name = "product_id") }
     )
-    @ToString.Exclude
     private List<Product> products;
 
 }
