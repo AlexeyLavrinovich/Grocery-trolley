@@ -13,6 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @SpringBootApplication
@@ -156,8 +159,17 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 		System.out.println("-------------------------------");
 	}
 
+	public void exercise11(){
+		System.out.println("-----------Exercise 11----------");
+		Map<Long, Object> result = orderRepo.findAll()
+				.stream()
+				.collect(Collectors.toMap(Order::getId, order -> order.getProducts().size()));
+		System.out.println(result);
+		System.out.println("-------------------------------");
+	}
+
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		exercise10();
+		exercise11();
 	}
 }
