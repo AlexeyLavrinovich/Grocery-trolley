@@ -144,8 +144,20 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 		System.out.println("-------------------------------");
 	}
 
+	public void exercise10(){
+		System.out.println("-----------Exercise 10----------");
+		System.out.println(
+				productRepo.findAll()
+						.stream()
+						.filter(product -> product.getCategory().equals("Books"))
+						.mapToDouble(Product::getPrice)
+						.summaryStatistics()
+		);
+		System.out.println("-------------------------------");
+	}
+
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-		exercise9();
+		exercise10();
 	}
 }
