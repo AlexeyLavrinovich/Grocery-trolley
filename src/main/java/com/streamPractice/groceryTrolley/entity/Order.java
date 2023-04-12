@@ -15,10 +15,6 @@ import java.util.List;
 @NamedEntityGraph(
         name = "order-with-products-graph",
         attributeNodes = {
-                @NamedAttributeNode("status"),
-                @NamedAttributeNode("orderDate"),
-                @NamedAttributeNode("deliveryDate"),
-                @NamedAttributeNode(value = "customer"),
                 @NamedAttributeNode(value = "products")
         }
 )
