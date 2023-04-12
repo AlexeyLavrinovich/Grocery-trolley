@@ -23,7 +23,10 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		System.out.println("-----------Orders----------");
-		productRepo.findAll().stream().map(ProductMapper.INSTANCE::mapToModel).forEach(System.out::println);
+		orderRepo.findAll().stream().map(OrderMapper.INSTANCE::mapToModel).forEach(System.out::println);
 		System.out.println("---------------------------");
+		System.out.println("-----------Products----------");
+		productRepo.findAll().stream().map(ProductMapper.INSTANCE::mapToModel).forEach(System.out::println);
+		System.out.println("-----------------------------");
 	}
 }
