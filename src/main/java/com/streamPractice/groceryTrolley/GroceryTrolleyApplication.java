@@ -2,8 +2,12 @@ package com.streamPractice.groceryTrolley;
 
 import com.streamPractice.groceryTrolley.mapper.OrderMapper;
 import com.streamPractice.groceryTrolley.mapper.ProductMapper;
+import com.streamPractice.groceryTrolley.repository.CustomerRepo;
 import com.streamPractice.groceryTrolley.repository.OrderRepo;
 import com.streamPractice.groceryTrolley.repository.ProductRepo;
+import com.streamPractice.groceryTrolley.service.Service;
+import com.streamPractice.groceryTrolley.service.customer.CustomerService;
+import com.streamPractice.groceryTrolley.service.customer.command.GetAllCustomerCommand;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class GroceryTrolleyApplication implements org.springframework.boot.ApplicationRunner{
 
+	private final CustomerRepo customerRepo;
 	private final OrderRepo orderRepo;
 	private final ProductRepo productRepo;
 
@@ -27,6 +32,10 @@ public class GroceryTrolleyApplication implements org.springframework.boot.Appli
 		System.out.println("---------------------------");
 		System.out.println("-----------Products----------");
 		productRepo.findAll().stream().map(ProductMapper.INSTANCE::mapToModel).forEach(System.out::println);
+		System.out.println("-----------------------------");
+		System.out.println("-----------Customer----------");
+		Service customerService = new CustomerService();
+		customerService.doCommand(new GetAllCustomerCommand(customerRepo)).forEach(System.out::println);
 		System.out.println("-----------------------------");
 	}
 }
